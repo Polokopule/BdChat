@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title id="title"></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+       body{
+				padding-top:20px;
+				margin:0;
+				display: flex;
+				flex-direction: column;
+				
+				align-items: center;
+				height:100vh;
+				
+				background:url("bg.jpg");
+				background-size: cover;
+			}
+			.nav{
+				width:90%;
+				background:#fff;
+				padding:5px;
+				border-radius:10px;
+				dispaly: flex;
+			}
+			
+			
+			.nav > div > b{
+				position: relative;
+				top:-20px;
+				font-weight:300;
+			}
+			.home{
+				width:90%;
+				height:60%;
+				background: #fff;
+				padding:px;
+				border-radius:10px;
+				overflow:scroll;
+				
+			}
+					.intro{
+				display: flex;
+				align-items: center;
+			}
+			.detail{
+				display: flex;
+				flex-direction: column;
+				font-size:8px;
+			}
+			.detail > b{
+			font-size: 10px;
+			padding:4px;
+			
+			}
+			.detail > span{
+				font-size:11px;
+			}
+			.file{
+				padding:10px;
+				border-bottom: 2px solid #D2D2D2;
+				width:300px
+			}
+			.fa {
+				float: right;
+				padding:5px;
+				
+			}
+			.nav >div> a{
+				margin:19px;
+				padding:8px;
+			background:url("bg.jpg");
+				background-size: cover;
+				text-decoration:none;
+				color:#fff;
+				border-radius:8px;
+			}
+			.person{
+				position:relative;
+				padding: 10px;
+			background:#333;
+			color:#fff;
+			height:auto;
+			display:flex;
+			flex-direction: column;
+			}
+		.person > pre {
+			
+			width:auto;
+			border-radius:9px;
+			height:auto;
+		}
+	
+.chat {
+  width: auto;
+  
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.messages {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.yours {
+  align-items: flex-start;
+}
+
+.yours .message {
+  margin-right: 25%;
+  background-color: #eee;
+  position: relative;
+}
+
+.yours .message:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: -7px;
+  height: 20px;
+  width: 20px;
+  background: #eee;
+  border-bottom-right-radius: 15px;
+}
+.yours .message:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: -10px;
+  width: 10px;
+  height: 20px;
+  background: white;
+  border-bottom-right-radius: 10px;
+}
+
+.mine {
+  align-items: flex-end;
+}
+
+.mine .message {
+  color: white;
+  margin-left: 25%;
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+.mine .message:before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  border-bottom-left-radius: 15px;
+}
+
+.mine .message:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: -10px;
+  width: 10px;
+  height: 20px;
+  background: white;
+  border-bottom-left-radius: 10px;
+}
+.bottom > form{
+	padding:5px;
+	display: flex;
+	gap:5px;
+}
+.bottom > form > input {
+	padding:7px;
+	background:none;
+	border: none;
+	outline: none;
+}
+.bottom > form >.bnt{
+	padding:10px;
+	background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+border-radius:10px;
+color:#fff;
+}
+  </style>
+    		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+	
+   <div class="nav">
+   	<div><img src="logo.png" width="60px"/><b id="user"></b>
+   	<a href="logout.html" style="float: right;">logout</a></div>
+    </div>
+    <br>
+    <div class="home">
+    	
+    		
+    		<div class="chat" id="chat">
+ 
+ 
+ 
+</div>
+    	</div>
+    	<br>
+    	 <div class="nav bottom">
+   	<form id="data-form">
+   		<input type="text" style="width:80%;" id="msg" placeholder="Write something..."/>
+   			
+   				<input type="submit" value='send' class="bnt"/>
+   		</form>
+    </div>
+    	
+    	<script>
+    		
+   $(document).ready(function() {
+    var user = localStorage.getItem("user");
+    
+    // Check if the "id" key exists in localStorage
+    if (localStorage.hasOwnProperty("id")) {
+        var id = localStorage.getItem("id");
+
+        // Check if the "id" value is not empty
+        if (id) {
+            // The "id" key exists and is not empty
+            $("#user").append(user);
+            $("#title").append(user + "|Home");
+            
+            console.log("The 'id' key exists and is not empty. Value: " + id);
+        } else {
+            // The "id" key exists but is empty
+            location.assign("index.html");
+        }
+    } else {
+        // The "id" key does not exist in localStorage
+        location.assign("index.html");
+    }
+
+    // Define your Firebase Realtime Database URL
+    var firebaseDatabaseURL = 'https://upload-4675e-default-rtdb.firebaseio.com/';
+
+    function addData(id, username, message) {
+        $.ajax({
+            url: firebaseDatabaseURL + "messages.json",
+            type: "POST",
+            data: JSON.stringify({ id: id, username: username, message: message }),
+            contentType: "application/json",
+            success: function(response) {
+                
+                Send();
+                $("#msg").val("");
+                 // Call Send function immediately after sending data
+            },
+            error: function(error) {
+                console.error("Error adding data:", error);
+            }
+        });
+    }
+
+    function Send() {
+        $.ajax({
+            url: firebaseDatabaseURL + "messages.json",
+            type: "GET",
+            success: function(data) {
+                // Clear previous messages
+                $("#chat").empty();
+                
+                // Loop through the data and display it
+                $.each(data, function(key, value) {
+                    var id2 = value.id;
+                    var text = value.message;
+                    var nm = value.username;
+                    
+                    var id = localStorage.getItem("id");
+                    if (id == id2) {
+                        var m = `<div class="mine messages">
+                            <div class="message">
+                                ${text}
+                            </div> 
+                        </div>`;
+                        $("#chat").append(m);
+                    } else {
+                        var m = `<div class="yours messages">
+                            <small>${nm}</small>
+                            <div class="message">
+                                ${text}
+                            </div>
+                        </div>`;
+                        $("#chat").append(m);
+                    }
+                    
+                });
+                
+            },
+            error: function(error) {
+                console.error("Error retrieving data:", error);
+            }
+        });
+    }
+function autoScroll() {
+  const chatDiv = document.getElementById("chat"); // Replace "chat" with the ID of your div
+  const scrollSpeed = 10;
+  const scrollStep = 1;
+  
+  const scrollInterval = setInterval(() => {
+    chatDiv.scrollTop += scrollStep;
+    
+    // Stop scrolling when reaching the bottom of the div
+    if (chatDiv.scrollTop + chatDiv.clientHeight >= chatDiv.scrollHeight) {
+      clearInterval(scrollInterval);
+    }
+  }, scrollSpeed);
+}
+
+    // Submit form to add data
+    $("#data-form").submit(function(event) {
+        event.preventDefault();
+        
+        var message = $("#msg").val();
+        var id = localStorage.getItem("id");
+        var username = localStorage.getItem("user");
+        
+        addData(id, username, message);
+        
+    });
+
+   setInterval(Send,100); // Call Send function on page load
+});
+
+     
+    	
+    		</script>
+</body>
+</html>
